@@ -1,24 +1,85 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { AppProvider, useAppContext } from "@/context/app-context";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useFonts } from "expo-font";
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import {
+  KumbhSans_400Regular,
+  KumbhSans_700Bold,
+} from "@expo-google-fonts/kumbh-sans";
+import {
+  RobotoSlab_400Regular,
+  RobotoSlab_700Bold,
+} from "@expo-google-fonts/roboto-slab";
+import {
+  SpaceMono_400Regular,
+  SpaceMono_700Bold,
+} from "@expo-google-fonts/space-mono";
+import "@/styles/globals.css";
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+SplashScreen.preventAutoHideAsync().catch(() => {
+  /* reloading the app might trigger an error here, safely ignore */
+});
+function RootLayoutContent() {
+  const { loaded: storageLoaded } = useAppContext();
+
+  const [fontsLoaded, fontError] = useFonts({
+    KumbhSans: KumbhSans_400Regular,
+    RobotoSlab: RobotoSlab_400Regular,
+    SpaceMono: SpaceMono_400Regular,
+
+    "KumbhSans-Bold": KumbhSans_700Bold,
+    "RobotoSlab-Bold": RobotoSlab_700Bold,
+    "SpaceMono-Bold": SpaceMono_700Bold,
+  });
+
+  useEffect(() => {
+    async function hideSplash() {
+      // 1. Only proceed if everything is ready
+      if ((fontsLoaded || fontError) && storageLoaded) {
+        try {
+          // 2. We add a tiny delay or just catch the potential race condition
+          await SplashScreen.hideAsync();
+        } catch (e) {
+          // 3. This silences the "No native splash screen registered" error
+          console.warn("Splash screen hide failed:", e);
+        }
+      }
+    }
+
+    hideSplash();
+  }, [fontsLoaded, fontError, storageLoaded]);
+
+  if ((!fontsLoaded && !fontError) || !storageLoaded) {
+    return null;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <>
+      <StatusBar style="light" />
+
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: "#1E213F" },
+        }}
+      >
+        <Stack.Screen name="index" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <AppProvider>
+      <SafeAreaProvider>
+        <RootLayoutContent />
+      </SafeAreaProvider>
+    </AppProvider>
   );
 }
