@@ -27,8 +27,7 @@ export const ModalContent = ({
       {/* Header */}
       <View className="flex-row justify-between items-center px-6 py-6 md:px-10 md:py-8 border-b border-gray-100">
         <Text
-          className="text-secondary-navy-200 text-2xl"
-          style={{ fontFamily: boldFontMap[localFont] }}
+          className={`text-secondary-navy-200  text-2xl ${boldFontMap[localFont]}`}
         >
           Settings
         </Text>
@@ -44,8 +43,7 @@ export const ModalContent = ({
         {/* Time Section */}
         <View className="py-6 border-b border-gray-100">
           <Text
-            className="text-secondary-navy-200 text-[11px]  tracking-[4px] uppercase mb-6  md:text-left"
-            style={{ fontFamily: fontMap[localFont] }}
+            className={`text-secondary-navy-200 text-[11px]  tracking-[4px] uppercase mb-6  md:text-left ${boldFontMap[localFont]}`}
           >
             Time (minutes)
           </Text>
@@ -71,7 +69,9 @@ export const ModalContent = ({
 
         {/* Font Section */}
         <View className="py-6 border-b border-gray-100 flex-row justify-between items-center">
-          <Text className="text-secondary-navy-200 text-[11px] font-bold tracking-[4px] uppercase">
+          <Text
+            className={`text-secondary-navy-200 text-[11px]  tracking-[4px] uppercase ${boldFontMap[localFont]}`}
+          >
             Font
           </Text>
           <View className="flex-row gap-4">
@@ -79,14 +79,14 @@ export const ModalContent = ({
               <Pressable
                 key={font}
                 onPress={() => setLocalFont(font)}
-                className={`w-10 h-10 rounded-full flex justify-center items-center ${
+                className={`w-10 h-10 rounded-full flex justify-center items-center  ${
                   localFont === font
                     ? "bg-secondary-navy-200"
                     : "bg-secondary-light-grey"
                 }`}
               >
                 <Text
-                  className={`text-sm font-bold ${
+                  className={`text-sm ${boldFontMap[font]}  ${
                     localFont === font
                       ? "text-white"
                       : "text-secondary-navy-200"
@@ -101,7 +101,9 @@ export const ModalContent = ({
 
         {/* Color Section */}
         <View className="py-6 flex-row justify-between items-center mb-4">
-          <Text className="text-secondary-navy-200 text-[11px] font-bold tracking-[4px] uppercase">
+          <Text
+            className={`text-secondary-navy-200 text-[11px] tracking-[4px] uppercase ${boldFontMap[localFont]}`}
+          >
             Color
           </Text>
           <View className="flex-row gap-4">
@@ -142,10 +144,7 @@ export const ModalContent = ({
           }}
           className="w-[140px] h-[53px] rounded-full justify-center items-center"
         >
-          <Text
-            className="text-white  text-base"
-            style={{ fontFamily: boldFontMap[localFont] }}
-          >
+          <Text className={`text-white  text-base ${boldFontMap[localFont]}`}>
             Apply
           </Text>
         </Pressable>

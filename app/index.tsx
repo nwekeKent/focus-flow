@@ -27,7 +27,7 @@ export default function TimerScreen() {
         <Text
           className={`text-white text-3xl mb-10 text-center ${boldFontMap[activeFont ?? "kumbh"]}`}
         >
-          pomodoro
+          focusflow
         </Text>
 
         <ModeSwitcher />

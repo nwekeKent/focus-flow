@@ -38,16 +38,16 @@ export default function Timer() {
           />
         </Svg>
 
-        <View className="absolute items-center justify-center">
+        <View className="absolute  items-center justify-center">
           <Text
-            className={`text-white text-7xl ${boldFontMap[activeFont || "kumbh"]}`}
+            className={`text-white tracking-[-3px] text-[70px]  ${boldFontMap[activeFont || "kumbh"]}`}
           >
             {formatTime()}
           </Text>
 
           <Pressable onPress={toggleTimer} className="active:opacity-70">
             <Text
-              className={`text-white text-xl tracking-[12px] mt-6 opacity-80 ${boldFontMap[activeFont || "kumbh"]}`}
+              className={`text-white text-xl tracking-[12px]  opacity-80 ${boldFontMap[activeFont || "kumbh"]}`}
             >
               {isActive ? "PAUSE" : "START"}
             </Text>

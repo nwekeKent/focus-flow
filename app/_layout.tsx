@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { AppProvider, useAppContext } from "@/context/app-context";
 import { StatusBar } from "expo-status-bar";
+import { setAudioModeAsync } from "expo-audio";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -36,6 +37,19 @@ function RootLayoutContent() {
     "RobotoSlab-Bold": RobotoSlab_700Bold,
     "SpaceMono-Bold": SpaceMono_700Bold,
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await setAudioModeAsync({
+          playsInSilentMode: true, // Crucial for iOS
+          allowsRecording: false,
+        });
+      } catch (e) {
+        console.warn("Audio mode failed:", e);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     async function hideSplash() {

@@ -1,8 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAppContext } from "@/context/app-context";
+import { useAudioPlayer } from "expo-audio";
+
+const audioSource = require("@/assets/sounds/alarm.mp3");
 
 export const useTimer = () => {
   const { activeMode, handleModeChange, times } = useAppContext();
+  const player = useAudioPlayer(audioSource);
 
   const getInitialSeconds = useCallback(() => {
     return times[activeMode] * 60;
@@ -18,6 +22,10 @@ export const useTimer = () => {
   }, [getInitialSeconds]);
 
   const handleSessionComplete = useCallback(() => {
+    if (player) {
+      player.seekTo(0);
+      player.play();
+    }
     if (activeMode === "pomodoro") {
       const nextCount = completedSessions + 1;
       setCompletedSessions(nextCount);
@@ -32,7 +40,7 @@ export const useTimer = () => {
       // Return to work after any break
       handleModeChange("pomodoro");
     }
-  }, [activeMode, completedSessions, handleModeChange]);
+  }, [activeMode, completedSessions, handleModeChange, player]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
