@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, ScrollView, Platform } from "react-native";
 import { Icons } from "@/constants/icons";
-import { colorMapHex, fontMap, boldFontMap } from "@/constants/maps";
+import { colorMapHex, boldFontMap } from "@/constants/maps";
 import { NumberInput } from "./number-input";
 import { useSettings } from "@/hooks/use-settings";
 

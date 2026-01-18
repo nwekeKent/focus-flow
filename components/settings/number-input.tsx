@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Pressable } from "react-native";
-import { Icons } from "@/constants/icons"; // Using the Icon registry we made
+import { Icons } from "@/constants/icons";
 
 interface NumberInputProps {
   value: number;
@@ -28,17 +28,14 @@ export function NumberInput({
 
   const handleInputChange = (text: string) => {
     if (text === "") {
-      onChange(0); // We'll fix this onBlur
+      onChange(0);
       return;
     }
 
-    // 2. Remove non-numeric chars and parse
     const newValue = parseInt(text.replace(/[^0-9]/g, ""));
 
-    // 3. Validate number
     if (isNaN(newValue)) return;
 
-    // 4. Max check (Min check usually happens on Blur so they can delete '1' to type '2')
     if (newValue > max) {
       onChange(max);
       return;
@@ -47,7 +44,6 @@ export function NumberInput({
     onChange(newValue);
   };
 
-  // Logic: handleBlur (Ensures the value is valid when they stop typing)
   const handleBlur = () => {
     if (value < min) {
       onChange(min);
@@ -68,7 +64,6 @@ export function NumberInput({
             onChangeText={handleInputChange}
             onBlur={handleBlur}
             style={{
-              // fontFamily: fontMap[localFont],
               fontSize: 14,
               fontWeight: "700",
               paddingVertical: 0,
@@ -79,7 +74,6 @@ export function NumberInput({
           />
         </View>
 
-        {/* 3. Center the icon column vertically */}
         <View className="flex-col justify-center items-center h-full">
           <Pressable onPress={handleIncrement} className="py-1" hitSlop={10}>
             <Icons.ArrowUp opacity={value >= max ? 0.25 : 0.5} />

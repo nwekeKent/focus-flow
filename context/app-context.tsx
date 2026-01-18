@@ -49,7 +49,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [times, setTimes] = useState<TimeSettings>(DEFAULT_TIMES);
   const [loaded, setLoaded] = useState(false);
 
-  // 1. Load Data on Startup
   useEffect(() => {
     const loadSettings = async () => {
       try {

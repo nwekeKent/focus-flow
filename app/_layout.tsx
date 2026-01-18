@@ -22,9 +22,8 @@ import {
 } from "@expo-google-fonts/space-mono";
 import "@/styles/globals.css";
 
-SplashScreen.preventAutoHideAsync().catch(() => {
-  /* reloading the app might trigger an error here, safely ignore */
-});
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
 function RootLayoutContent() {
   const { loaded: storageLoaded } = useAppContext();
 
@@ -42,7 +41,7 @@ function RootLayoutContent() {
     (async () => {
       try {
         await setAudioModeAsync({
-          playsInSilentMode: true, // Crucial for iOS
+          playsInSilentMode: true,
           allowsRecording: false,
         });
       } catch (e) {
@@ -53,13 +52,10 @@ function RootLayoutContent() {
 
   useEffect(() => {
     async function hideSplash() {
-      // 1. Only proceed if everything is ready
       if ((fontsLoaded || fontError) && storageLoaded) {
         try {
-          // 2. We add a tiny delay or just catch the potential race condition
           await SplashScreen.hideAsync();
         } catch (e) {
-          // 3. This silences the "No native splash screen registered" error
           console.warn("Splash screen hide failed:", e);
         }
       }

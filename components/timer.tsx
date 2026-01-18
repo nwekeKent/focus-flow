@@ -9,7 +9,6 @@ export default function Timer() {
   const { activeColor, activeFont } = useAppContext();
   const { progress, isActive, toggleTimer, formatTime } = useTimer();
 
-  // SVG Constants
   const size = 260;
   const strokeWidth = 10;
   const center = size / 2;

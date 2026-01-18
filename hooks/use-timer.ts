@@ -30,14 +30,12 @@ export const useTimer = () => {
       const nextCount = completedSessions + 1;
       setCompletedSessions(nextCount);
 
-      // Standard rule: Long break every 4th Pomodoro
       if (nextCount % 4 === 0) {
         handleModeChange("long break");
       } else {
         handleModeChange("short break");
       }
     } else {
-      // Return to work after any break
       handleModeChange("pomodoro");
     }
   }, [activeMode, completedSessions, handleModeChange, player]);

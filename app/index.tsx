@@ -12,7 +12,6 @@ export default function TimerScreen() {
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
-  // Prevent flicker before settings are loaded from AsyncStorage
   if (!loaded) return null;
 
   const boldFontMap = {
@@ -34,7 +33,6 @@ export default function TimerScreen() {
 
         <Timer />
 
-        {/* Settings Gear - Link to modal.tsx */}
         <Pressable
           onPress={() => setIsSettingsVisible(true)}
           className="active:opacity-60 p-4 mt-auto mb-12"
